@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 import com.android.deskclock.R;
+import android.util.Log;
 
 /**
  * {@link MenuItemController} for search menu.
@@ -64,11 +65,13 @@ public final class SearchMenuItemController extends AbstractMenuItemController {
         super.setInitialState(menu);
         final MenuItem search = menu.findItem(SEARCH_MENU_RES_ID);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-        searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        searchView.setQuery(mQuery, false);
-        searchView.setOnCloseListener(mSearchModeChangeListener);
-        searchView.setOnSearchClickListener(mSearchModeChangeListener);
-        searchView.setOnQueryTextListener(mQueryListener);
+		if(searchView!=null){
+			searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+			searchView.setQuery(mQuery, false);
+			searchView.setOnCloseListener(mSearchModeChangeListener);
+			searchView.setOnSearchClickListener(mSearchModeChangeListener);
+			searchView.setOnQueryTextListener(mQueryListener);
+		}
         if (mSearchMode) {
             searchView.requestFocus();
             searchView.setIconified(false);
