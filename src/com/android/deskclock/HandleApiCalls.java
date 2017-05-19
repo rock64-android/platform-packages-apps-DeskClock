@@ -43,6 +43,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import android.util.Log;
+import java.util.Locale;
+
+
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
@@ -279,7 +283,16 @@ public class HandleApiCalls extends Activity {
             createAlarm.putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
             createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
             startActivity(createAlarm);
+            //Log.d("zyttest","hour: "+hour+"minutes : "+minutes);
+            String locale = Locale.getDefault().toString();
+            //Log.d("zyttest","locale:"+locale);
+        if("zh_CN_#Hans".equals(locale))
+        {
+            Voice.notifyFailure(this, getString(R.string.invalid_time," ", hour, minutes));
+        }else
+        {
             Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
+        }
             LogUtils.i("HandleApiCalls no/invalid time; opening UI");
             return;
         }
