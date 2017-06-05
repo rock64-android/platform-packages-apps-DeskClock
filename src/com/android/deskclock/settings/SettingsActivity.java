@@ -109,6 +109,11 @@ public final class SettingsActivity extends BaseActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+            //fix google native issue, cannot save and effect settingActivity's setting item
+            if(Utils.isNOrLater()) {
+                getPreferenceManager().setStorageDeviceProtected();
+            }
+
             addPreferencesFromResource(R.xml.settings);
             loadTimeZoneList();
         }
